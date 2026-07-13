@@ -41,6 +41,21 @@ def resize_max_width(im, max_w):
     return im.resize((max_w, int(im.height * ratio)), Image.LANCZOS)
 
 
+def trim_alpha(im):
+    """Remove margens transparentes de PNGs recortados."""
+    im = im.convert("RGBA")
+    bbox = im.getbbox()
+    if bbox:
+        im = im.crop(bbox)
+    return im
+
+
+def save_webp_alpha(im, path, quality=82):
+    im = im.convert("RGBA")
+    im.save(path, "WEBP", quality=quality, method=6)
+    print("WEBP ->", path, os.path.getsize(path) // 1024, "KB")
+
+
 def crop_cover(im, target_w, target_h, vertical_bias=1 / 3):
     """Recorta a imagem para preencher target_w x target_h (estilo object-fit: cover).
     vertical_bias controla onde fica a "janela" de corte verticalmente quando a
@@ -176,6 +191,35 @@ save_jpg(og, os.path.join(IMG_OUT, "og-image.jpg"), quality=85)
 print("\nDimensões das fotos geradas (atualize width/height no index.html se mudar):")
 for label, im in [("hero", hero), ("sobre", sobre), ("cta", cta), ("full", full)]:
     print(f"  {label}: {im.width} x {im.height}")
+
+# ---------------------------------------------------------------------------
+# FOTOS SEM FUNDO com gradiente na base (hero flutuante)
+# Não aplicar trim_alpha — o fade inferior faz parte do recorte.
+# ---------------------------------------------------------------------------
+cutout_sources = {
+    1: "foto-semfundo-josi (1).png",
+    2: "foto-semfundo-josi (2).png",
+}
+cutouts = {}
+for key, filename in cutout_sources.items():
+    src = os.path.join(fotos_dir, filename)
+    if not os.path.exists(src):
+        print("AVISO: recorte não encontrado ->", src)
+        continue
+    im = ImageOps.exif_transpose(Image.open(src)).convert("RGBA")
+    im = resize_max_width(im, 900)
+    cutouts[key] = im
+    base = f"josi-hero-cutout-{key}"
+    save_png(im, os.path.join(IMG_OUT, f"{base}.png"))
+    save_webp_alpha(im, os.path.join(IMG_OUT, f"{base}.webp"), quality=84)
+    sm = resize_max_width(im, 560)
+    save_png(sm, os.path.join(IMG_OUT, f"{base}-sm.png"))
+    save_webp_alpha(sm, os.path.join(IMG_OUT, f"{base}-sm.webp"), quality=84)
+
+if cutouts:
+    print("\nDimensões dos recortes do hero:")
+    for key, im in cutouts.items():
+        print(f"  cutout-{key}: {im.width} x {im.height}")
 
 # ---------------------------------------------------------------------------
 # FONTES

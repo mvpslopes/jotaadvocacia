@@ -601,6 +601,21 @@ textarea:focus-visible {
   padding: 148px 0 96px;
 }
 
+.hero--cutout {
+  overflow: hidden;
+  padding: 132px 0 0;
+}
+
+.hero--cutout .container {
+  align-items: start;
+}
+
+.hero--cutout .hero-content {
+  align-self: start;
+  padding-top: 36px;
+  margin-top: 0;
+}
+
 .hero-backdrop {
   position: absolute;
   inset: 0;
@@ -633,7 +648,13 @@ textarea:focus-visible {
 
 .hero-visual {
   justify-self: end;
-  width: min(420px, 100%);
+  width: min(460px, 100%);
+}
+
+.hero--cutout .hero-visual {
+  align-self: end;
+  width: min(400px, 100%);
+  margin-bottom: 0;
 }
 
 .hero-frame {
@@ -646,6 +667,14 @@ textarea:focus-visible {
     0 0 0 1px rgba(212, 181, 120, 0.35);
   border: 2px solid rgba(212, 181, 120, 0.45);
   background: var(--navy-800);
+}
+
+.hero-frame--cutout {
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .hero-frame-badge {
@@ -699,6 +728,30 @@ textarea:focus-visible {
   inset: 0;
 }
 
+.hero-frame--cutout .hero-slides {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+  height: auto;
+  align-items: end;
+}
+
+.hero-frame--cutout .hero-slide {
+  grid-area: 1 / 1;
+  position: relative;
+  inset: auto;
+  align-self: end;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.4s ease;
+}
+
+.hero-frame--cutout .hero-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .hero-slide {
   position: absolute;
   inset: 0;
@@ -721,6 +774,51 @@ textarea:focus-visible {
   object-fit: cover;
   object-position: center 16%;
   transform: scale(1);
+}
+
+.hero-frame--cutout .hero-slide picture {
+  display: block;
+  width: 100%;
+  height: auto;
+  line-height: 0;
+}
+
+.hero-frame--cutout .hero-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: unset;
+  filter: drop-shadow(0 12px 28px rgba(8, 18, 32, 0.28));
+}
+
+.hero-frame--cutout .hero-slide.is-active img {
+  animation: none;
+}
+
+.hero-frame--cutout .hero-slide[data-slide="1"] img {
+  transform: scale(1.08);
+  transform-origin: center bottom;
+}
+
+/* Foto 1 (meio-corpo) — maior para equilibrar com a foto 2 */
+.hero-frame--cutout .hero-slide[data-slide="0"] img {
+  transform: scale(1.32);
+  transform-origin: center bottom;
+}
+
+.hero-frame--cutout .hero-frame-badge {
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.hero-frame--cutout .hero-dots {
+  top: 8px;
+  right: 12px;
+  bottom: auto;
+  transform: none;
 }
 
 .hero-slide.is-active img {
@@ -865,6 +963,15 @@ textarea:focus-visible {
     padding: 128px 0 80px;
   }
 
+  .hero--cutout {
+    padding: 118px 0 0;
+  }
+
+  .hero--cutout .hero-content {
+    padding-top: 20px;
+    margin-top: 0;
+  }
+
   .hero .container {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -873,7 +980,35 @@ textarea:focus-visible {
   .hero-visual {
     order: -1;
     justify-self: center;
-    width: min(340px, 88vw);
+    width: min(320px, 78vw);
+  }
+
+  .hero--cutout .hero-content {
+    align-self: auto;
+    padding-bottom: 0;
+  }
+
+  .hero--cutout .hero-visual {
+    margin-bottom: 0;
+    width: min(280px, 72vw);
+  }
+
+  .hero--cutout .container {
+    padding-bottom: 0;
+  }
+
+  .hero-frame--cutout .hero-frame-badge {
+    bottom: 16%;
+  }
+
+  .hero-frame--cutout .hero-slide[data-slide="0"] img {
+    transform: scale(1.24);
+    transform-origin: center bottom;
+  }
+
+  .hero-frame--cutout .hero-slide[data-slide="1"] img {
+    transform: scale(1.05);
+    transform-origin: center bottom;
   }
 
   .hero-title,
