@@ -169,10 +169,11 @@
   /* -----------------------------------------------------------------
      2d. Slideshow do hero + indicadores
      ----------------------------------------------------------------- */
-  var heroSlides = document.querySelectorAll(".hero-slide");
-  var heroDots = document.querySelectorAll(".hero-dot");
+  var heroSlides = document.querySelectorAll(".hero-visual--desktop .hero-slide");
+  var heroDots = document.querySelectorAll(".hero-visual--desktop .hero-dot");
   var heroIndex = 0;
   var heroTimer;
+  var heroDesktopMQ = window.matchMedia("(min-width: 941px)");
 
   function setHeroSlide(index) {
     if (!heroSlides.length) return;
@@ -192,21 +193,28 @@
   }
 
   function startHeroSlideshow() {
-    if (heroSlides.length < 2 || reducedMotion) return;
     window.clearInterval(heroTimer);
+    if (heroSlides.length < 2 || reducedMotion || !heroDesktopMQ.matches) return;
     heroTimer = window.setInterval(nextHeroSlide, 6500);
   }
 
   if (heroSlides.length) {
     heroDots.forEach(function (dot) {
       dot.addEventListener("click", function () {
+        if (!heroDesktopMQ.matches) return;
         var target = Number(dot.getAttribute("data-slide"));
         if (Number.isNaN(target)) return;
         setHeroSlide(target);
         startHeroSlideshow();
       });
     });
+    setHeroSlide(0);
     startHeroSlideshow();
+    if (heroDesktopMQ.addEventListener) {
+      heroDesktopMQ.addEventListener("change", startHeroSlideshow);
+    } else if (heroDesktopMQ.addListener) {
+      heroDesktopMQ.addListener(startHeroSlideshow);
+    }
   }
 
   /* -----------------------------------------------------------------

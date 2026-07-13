@@ -124,27 +124,49 @@
     </div>
 
     <div class="hero-visual">
-      <div class="hero-frame hero-frame--cutout">
-        <div class="hero-slides" id="heroSlides">
-          <div class="hero-slide is-active" data-slide="0">
-            <picture>
-              <source srcset="assets/img/josi-hero-cutout-1.webp" type="image/webp" />
-              <img src="assets/img/josi-hero-cutout-1.png" alt="Dra. Josi, advogada especialista em Direito da Saúde da JOTA Advocacia" width="900" height="1152" />
-            </picture>
+      <!-- Desktop: fotos sem fundo em slideshow -->
+      <div class="hero-visual--desktop" aria-hidden="false">
+        <div class="hero-frame hero-frame--cutout">
+          <div class="hero-slides" id="heroSlides">
+            <div class="hero-slide is-active" data-slide="0">
+              <picture>
+                <source srcset="assets/img/josi-hero-cutout-1.webp" type="image/webp" />
+                <img src="assets/img/josi-hero-cutout-1.png" alt="Dra. Josi, advogada especialista em Direito da Saúde da JOTA Advocacia" width="900" height="1152" />
+              </picture>
+            </div>
+            <div class="hero-slide" data-slide="1">
+              <picture>
+                <source srcset="assets/img/josi-hero-cutout-2.webp" type="image/webp" />
+                <img src="assets/img/josi-hero-cutout-2.png" alt="" width="900" height="1421" />
+              </picture>
+            </div>
           </div>
-          <div class="hero-slide" data-slide="1">
-            <picture>
-              <source srcset="assets/img/josi-hero-cutout-2.webp" type="image/webp" />
-              <img src="assets/img/josi-hero-cutout-2.png" alt="" width="900" height="1421" />
-            </picture>
+          <span class="hero-frame-badge">Dra. Josi · Fundadora</span>
+          <div class="hero-dots" id="heroDots" aria-label="Fotos do hero">
+            <button type="button" class="hero-dot is-active" aria-label="Foto 1" aria-current="true" data-slide="0"></button>
+            <button type="button" class="hero-dot" aria-label="Foto 2" data-slide="1"></button>
           </div>
-        </div>
-        <span class="hero-frame-badge">Dra. Josi · Fundadora</span>
-        <div class="hero-dots" id="heroDots" aria-label="Fotos do hero">
-          <button type="button" class="hero-dot is-active" aria-label="Foto 1" aria-current="true" data-slide="0"></button>
-          <button type="button" class="hero-dot" aria-label="Foto 2" data-slide="1"></button>
         </div>
       </div>
+
+      <!-- Mobile: apenas foto-josi (2) com moldura -->
+      <figure class="hero-visual--mobile hero-portrait">
+        <div class="hero-portrait__outer">
+          <div class="hero-portrait__mat">
+            <div class="hero-portrait__photo">
+              <picture>
+                <source srcset="assets/img/josi-hero-mobile.webp" type="image/webp" />
+                <img src="assets/img/josi-hero-mobile.jpg" alt="Dra. Josi, advogada especialista em Direito da Saúde da JOTA Advocacia" width="720" height="900" />
+              </picture>
+              <span class="hero-portrait__corner hero-portrait__corner--tl" aria-hidden="true"></span>
+              <span class="hero-portrait__corner hero-portrait__corner--tr" aria-hidden="true"></span>
+              <span class="hero-portrait__corner hero-portrait__corner--bl" aria-hidden="true"></span>
+              <span class="hero-portrait__corner hero-portrait__corner--br" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="hero-portrait__badge">Dra. Josi · Fundadora</figcaption>
+      </figure>
     </div>
   </div>
 </section>

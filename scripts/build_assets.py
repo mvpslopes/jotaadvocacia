@@ -56,6 +56,29 @@ def save_webp_alpha(im, path, quality=82):
     print("WEBP ->", path, os.path.getsize(path) // 1024, "KB")
 
 
+def fade_bottom_alpha(im, fade_ratio=0.28):
+    """Força fade real até alpha 0 na base (as PNGs originais param em ~60% opaco)."""
+    im = im.convert("RGBA")
+    w, h = im.size
+    fade_h = max(1, int(h * fade_ratio))
+    start = h - fade_h
+    alpha = im.split()[3]
+    a = list(alpha.getdata())
+    out = []
+    for i, ai in enumerate(a):
+        y = i // w
+        if y < start:
+            out.append(ai)
+            continue
+        t = (y - start) / (fade_h - 1) if fade_h > 1 else 1.0
+        factor = (1.0 - t) * (1.0 - t)  # ease-in até 0
+        out.append(int(ai * factor))
+    new_alpha = Image.new("L", (w, h))
+    new_alpha.putdata(out)
+    im.putalpha(new_alpha)
+    return im
+
+
 def crop_cover(im, target_w, target_h, vertical_bias=1 / 3):
     """Recorta a imagem para preencher target_w x target_h (estilo object-fit: cover).
     vertical_bias controla onde fica a "janela" de corte verticalmente quando a
@@ -168,6 +191,11 @@ save_webp(hero, os.path.join(IMG_OUT, "josi-hero.webp"), quality=82)
 hero_sm = resize_max_width(hero, 600)
 save_jpg(hero_sm, os.path.join(IMG_OUT, "josi-hero-sm.jpg"), quality=84)
 save_webp(hero_sm, os.path.join(IMG_OUT, "josi-hero-sm.webp"), quality=82)
+
+# HERO MOBILE - foto-josi (2).jpg em recorte 4:5 para moldura
+hero_mobile = crop_cover(imgs[2], 720, 900, vertical_bias=0.28)
+save_jpg(hero_mobile, os.path.join(IMG_OUT, "josi-hero-mobile.jpg"), quality=86)
+save_webp(hero_mobile, os.path.join(IMG_OUT, "josi-hero-mobile.webp"), quality=84)
 
 # SOBRE - foto 1 (confiante)
 sobre = resize_max_width(imgs[1], 900)
