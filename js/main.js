@@ -17,10 +17,27 @@
     document.body.classList.add("is-loaded");
   }
 
+  if (reducedMotion || !splash) {
+    if (splash) splash.classList.add("is-hidden");
+    markPageLoaded();
+  } else if (window.localStorage && window.localStorage.getItem("jota_splash_seen") === "1") {
+    splash.classList.add("is-hidden");
+    markPageLoaded();
+  } else {
+    document.body.classList.add("is-splashing");
+    window.addEventListener("load", function () {
+      setTimeout(hideSplash, 1800);
+    });
+    setTimeout(hideSplash, 2800);
+  }
+
   function hideSplash() {
     if (!splash) {
       markPageLoaded();
       return;
+    }
+    if (window.localStorage) {
+      window.localStorage.setItem("jota_splash_seen", "1");
     }
     splash.classList.add("is-exiting");
     setTimeout(function () {
@@ -28,17 +45,6 @@
       splash.setAttribute("aria-hidden", "true");
       markPageLoaded();
     }, 650);
-  }
-
-  if (reducedMotion || !splash) {
-    if (splash) splash.classList.add("is-hidden");
-    markPageLoaded();
-  } else {
-    document.body.classList.add("is-splashing");
-    window.addEventListener("load", function () {
-      setTimeout(hideSplash, 2200);
-    });
-    setTimeout(hideSplash, 3500);
   }
 
   /* -----------------------------------------------------------------
@@ -161,19 +167,78 @@
   window.addEventListener("scroll", updateScrollProgress, { passive: true });
 
   /* -----------------------------------------------------------------
-     2d. Slideshow do hero
+     2d. Slideshow do hero + indicadores
      ----------------------------------------------------------------- */
   var heroSlides = document.querySelectorAll(".hero-slide");
+  var heroDots = document.querySelectorAll(".hero-dot");
+  var heroIndex = 0;
+  var heroTimer;
 
-  if (heroSlides.length > 1 && !reducedMotion) {
-    var heroIndex = 0;
-
-    window.setInterval(function () {
-      heroSlides[heroIndex].classList.remove("is-active");
-      heroIndex = (heroIndex + 1) % heroSlides.length;
-      heroSlides[heroIndex].classList.add("is-active");
-    }, 6500);
+  function setHeroSlide(index) {
+    if (!heroSlides.length) return;
+    heroIndex = index;
+    heroSlides.forEach(function (slide, i) {
+      slide.classList.toggle("is-active", i === index);
+    });
+    heroDots.forEach(function (dot, i) {
+      var isActive = i === index;
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-current", isActive ? "true" : "false");
+    });
   }
+
+  function nextHeroSlide() {
+    setHeroSlide((heroIndex + 1) % heroSlides.length);
+  }
+
+  function startHeroSlideshow() {
+    if (heroSlides.length < 2 || reducedMotion) return;
+    window.clearInterval(heroTimer);
+    heroTimer = window.setInterval(nextHeroSlide, 6500);
+  }
+
+  if (heroSlides.length) {
+    heroDots.forEach(function (dot) {
+      dot.addEventListener("click", function () {
+        var target = Number(dot.getAttribute("data-slide"));
+        if (Number.isNaN(target)) return;
+        setHeroSlide(target);
+        startHeroSlideshow();
+      });
+    });
+    startHeroSlideshow();
+  }
+
+  /* -----------------------------------------------------------------
+     2e. Menu ativo conforme a seção visível
+     ----------------------------------------------------------------- */
+  var navLinks = document.querySelectorAll(".main-nav a[href^='#']");
+  var sectionIds = ["sobre", "servicos", "como-funciona", "depoimentos", "faq", "contato"];
+  var navSections = sectionIds
+    .map(function (id) {
+      return document.getElementById(id);
+    })
+    .filter(Boolean);
+
+  function updateActiveNav() {
+    if (!navLinks.length || !navSections.length) return;
+    var scrollPos = window.scrollY + 140;
+    var currentId = "";
+
+    navSections.forEach(function (section) {
+      if (scrollPos >= section.offsetTop) {
+        currentId = section.id;
+      }
+    });
+
+    navLinks.forEach(function (link) {
+      var href = link.getAttribute("href");
+      link.classList.toggle("is-active", href === "#" + currentId);
+    });
+  }
+
+  updateActiveNav();
+  window.addEventListener("scroll", updateActiveNav, { passive: true });
 
   /* -----------------------------------------------------------------
      3. Acordeão de FAQ
