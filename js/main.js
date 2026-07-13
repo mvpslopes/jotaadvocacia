@@ -1,0 +1,222 @@
+/* =========================================================================
+   JOTA Advocacia — interações do site
+   ========================================================================= */
+(function () {
+  "use strict";
+
+  var WHATSAPP_NUMBER = "5531982445112";
+
+  /* -----------------------------------------------------------------
+     1. Cabeçalho: estado "rolado" + menu mobile
+     ----------------------------------------------------------------- */
+  var header = document.querySelector(".site-header");
+  var navToggle = document.getElementById("navToggle");
+  var mainNav = document.getElementById("mainNav");
+  var navOverlay = document.getElementById("navOverlay");
+
+  function updateHeaderState() {
+    if (!header) return;
+    if (window.scrollY > 40) {
+      header.classList.add("is-scrolled");
+    } else {
+      header.classList.remove("is-scrolled");
+    }
+  }
+  updateHeaderState();
+  window.addEventListener("scroll", updateHeaderState, { passive: true });
+
+  function closeMobileNav() {
+    mainNav.classList.remove("is-open");
+    navOverlay.classList.remove("is-open");
+    navToggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  function toggleMobileNav() {
+    var isOpen = mainNav.classList.toggle("is-open");
+    navOverlay.classList.toggle("is-open", isOpen);
+    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  }
+
+  if (navToggle && mainNav) {
+    navToggle.addEventListener("click", toggleMobileNav);
+    navOverlay.addEventListener("click", closeMobileNav);
+    mainNav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeMobileNav);
+    });
+  }
+
+  /* -----------------------------------------------------------------
+     2. Animações de entrada ao rolar a página
+     ----------------------------------------------------------------- */
+  var animatedEls = document.querySelectorAll("[data-animate]");
+
+  if ("IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+    animatedEls.forEach(function (el) {
+      observer.observe(el);
+    });
+  } else {
+    animatedEls.forEach(function (el) {
+      el.classList.add("is-visible");
+    });
+  }
+
+  /* -----------------------------------------------------------------
+     3. Acordeão de FAQ
+     ----------------------------------------------------------------- */
+  var faqItems = document.querySelectorAll(".faq-item");
+
+  function setAnswerHeight(item, open) {
+    var answer = item.querySelector(".faq-answer");
+    if (!answer) return;
+    if (open) {
+      answer.style.height = answer.scrollHeight + "px";
+    } else {
+      answer.style.height = "0px";
+    }
+  }
+
+  faqItems.forEach(function (item) {
+    var question = item.querySelector(".faq-question");
+    setAnswerHeight(item, item.classList.contains("is-open"));
+
+    question.addEventListener("click", function () {
+      var wasOpen = item.classList.contains("is-open");
+
+      faqItems.forEach(function (other) {
+        other.classList.remove("is-open");
+        other.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+        setAnswerHeight(other, false);
+      });
+
+      if (!wasOpen) {
+        item.classList.add("is-open");
+        question.setAttribute("aria-expanded", "true");
+        setAnswerHeight(item, true);
+      }
+    });
+  });
+
+  window.addEventListener("resize", function () {
+    faqItems.forEach(function (item) {
+      if (item.classList.contains("is-open")) {
+        setAnswerHeight(item, true);
+      }
+    });
+  });
+
+  /* -----------------------------------------------------------------
+     4. Formulário de contato -> PHP -> redireciona ao WhatsApp
+     ----------------------------------------------------------------- */
+  var leadForm = document.getElementById("leadForm");
+  var feedbackBox = document.getElementById("formFeedback");
+  var submitBtn = document.getElementById("leadFormSubmit");
+
+  function showFeedback(message, type) {
+    if (!feedbackBox) return;
+    feedbackBox.textContent = message;
+    feedbackBox.className = "form-feedback is-visible " + type;
+  }
+
+  function buildWhatsAppMessage(data) {
+    var linhas = [
+      "Ola, Dra. Josi! Meu nome e " + data.nome + ".",
+      "Assunto: " + data.assunto + ".",
+    ];
+    if (data.mensagem) {
+      linhas.push("Detalhes: " + data.mensagem);
+    }
+    linhas.push("Vim pelo site da JOTA Advocacia e gostaria de uma analise do meu caso.");
+    return linhas.join(" ");
+  }
+
+  if (leadForm) {
+    leadForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var nome = leadForm.nome.value.trim();
+      var telefone = leadForm.telefone.value.trim();
+      var assunto = leadForm.assunto.value;
+
+      if (!nome || !telefone || !assunto) {
+        showFeedback("Por favor, preencha nome, WhatsApp e assunto antes de enviar.", "error");
+        return;
+      }
+
+      var formData = new FormData(leadForm);
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.7";
+      showFeedback("Enviando suas informações...", "success");
+
+      fetch(leadForm.action, {
+        method: "POST",
+        body: formData,
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      })
+        .then(function (response) {
+          return response.json().catch(function () {
+            return { success: response.ok };
+          });
+        })
+        .then(function (result) {
+          if (result && result.success === false) {
+            showFeedback(result.message || "Não foi possível enviar agora. Tente novamente ou fale direto no WhatsApp.", "error");
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+            return;
+          }
+
+          showFeedback("Recebemos sua mensagem! Redirecionando para o WhatsApp...", "success");
+
+          var mensagem = buildWhatsAppMessage({
+            nome: nome,
+            assunto: assunto,
+            mensagem: leadForm.mensagem.value.trim(),
+          });
+          var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(mensagem);
+
+          setTimeout(function () {
+            window.location.href = url;
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+          }, 900);
+        })
+        .catch(function () {
+          // mesmo se o backend falhar (ex.: ambiente sem PHP configurado),
+          // garantimos que o objetivo principal da página seja cumprido.
+          showFeedback("Redirecionando para o WhatsApp...", "success");
+          var mensagem = buildWhatsAppMessage({
+            nome: nome,
+            assunto: assunto,
+            mensagem: leadForm.mensagem.value.trim(),
+          });
+          var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(mensagem);
+          setTimeout(function () {
+            window.location.href = url;
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+          }, 900);
+        });
+    });
+  }
+
+  /* -----------------------------------------------------------------
+     5. Ano atual no rodapé
+     ----------------------------------------------------------------- */
+  var anoEl = document.getElementById("anoAtual");
+  if (anoEl) {
+    anoEl.textContent = new Date().getFullYear();
+  }
+})();

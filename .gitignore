@@ -1,0 +1,20 @@
+# Materiais de origem (arquivos brutos e pesados da marca — não fazem parte do site publicado)
+/arquivos/
+/estampas/
+/fotos/
+/logo/
+/tipografia/
+
+# Dados de leads gerados em runtime (não devem ser versionados)
+/dados/*.csv
+/dados/*.json
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+
+# Screenshots e artefatos temporários de teste
+/_*.png
+/preview-*.png
