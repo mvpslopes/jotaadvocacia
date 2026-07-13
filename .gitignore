@@ -1,3 +1,6 @@
+# Build de deploy (gerado por scripts/build_dist.py)
+/dist/
+
 # Materiais de origem (arquivos brutos e pesados da marca — não fazem parte do site publicado)
 /arquivos/
 /estampas/

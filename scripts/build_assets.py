@@ -72,23 +72,44 @@ save_png(im, os.path.join(IMG_OUT, "logo-navy.png"))
 im = Image.open(os.path.join(logo_dir, "Página 2.png"))
 save_png(im, os.path.join(IMG_OUT, "logo-navy-stacked.png"))
 
-# Ícone isolado navy (para favicon / marca d'água)
+# Ícone isolado navy (marca d'água / referência)
 im = Image.open(os.path.join(logo_dir, "Página 4.png"))
 save_png(im, os.path.join(IMG_OUT, "logo-icon-navy.png"))
 
-# Badge quadrado navy com ícone branco (para favicon)
+# Badge quadrado navy com ícone branco
 im = Image.open(os.path.join(logo_dir, "Página 5.png"))
 save_png(im, os.path.join(IMG_OUT, "logo-badge.png"))
-favicon = im.resize((64, 64), Image.LANCZOS)
-save_png(favicon, os.path.join(IMG_OUT, "favicon.png"))
-apple_icon = im.resize((180, 180), Image.LANCZOS)
-save_png(apple_icon, os.path.join(IMG_OUT, "apple-touch-icon.png"))
+
+# Favicon oficial da marca (arquivo dedicado em /logo)
+favicon_src = os.path.join(logo_dir, "favicon.png")
+if os.path.exists(favicon_src):
+    favicon_im = Image.open(favicon_src).convert("RGBA")
+    save_png(favicon_im, os.path.join(IMG_OUT, "favicon.png"))
+    # Versão quadrada para apple-touch-icon (recorte central proporcional)
+    w, h = favicon_im.size
+    side = min(w, h)
+    left = (w - side) // 2
+    top = (h - side) // 2
+    favicon_sq = favicon_im.crop((left, top, left + side, top + side))
+    save_png(favicon_sq.resize((180, 180), Image.LANCZOS), os.path.join(IMG_OUT, "apple-touch-icon.png"))
 
 # Logo horizontal branco (para header em fundo escuro / footer) - vem do kit de marca
 branco_path = os.path.join(ARQ, "MARCA", "BRANCO", "Página 1.png")
 if os.path.exists(branco_path):
     im = Image.open(branco_path)
     save_png(im, os.path.join(IMG_OUT, "logo-white.png"))
+
+# Logo empilhado branco (splash screen)
+branco_stacked = os.path.join(ARQ, "MARCA", "BRANCO", "Página 2.png")
+if os.path.exists(branco_stacked):
+    im = Image.open(branco_stacked)
+    save_png(im, os.path.join(IMG_OUT, "logo-white-stacked.png"))
+
+# Ícone branco isolado
+branco_icon = os.path.join(ARQ, "MARCA", "BRANCO", "Página 4.png")
+if os.path.exists(branco_icon):
+    im = Image.open(branco_icon)
+    save_png(im, os.path.join(IMG_OUT, "logo-icon-white.png"))
 
 # ---------------------------------------------------------------------------
 # ESTAMPAS (padrões decorativos) - opacas, exportar como JPG leve
@@ -110,6 +131,8 @@ for src_name, out_name in estampa_map.items():
 
 # ---------------------------------------------------------------------------
 # FOTOS da Dra. Josi
+# As fotos em /fotos já vêm recortadas pela cliente — aqui apenas redimensionamos
+# mantendo a proporção original, sem crop adicional que distorcia o enquadramento.
 # ---------------------------------------------------------------------------
 fotos_dir = os.path.join(PUBLIC, "fotos")
 
@@ -123,21 +146,21 @@ fotos_originais = {
 imgs = {k: Image.open(os.path.join(fotos_dir, v)) for k, v in fotos_originais.items()}
 imgs = {k: ImageOps.exif_transpose(v) for k, v in imgs.items()}
 
-# HERO - foto 2 (sorrindo), recorte retrato alto
-hero = crop_cover(imgs[2], 1000, 1250)
+# HERO - foto 2 (sorrindo)
+hero = resize_max_width(imgs[2], 1000)
 save_jpg(hero, os.path.join(IMG_OUT, "josi-hero.jpg"), quality=84)
 save_webp(hero, os.path.join(IMG_OUT, "josi-hero.webp"), quality=82)
 hero_sm = resize_max_width(hero, 600)
 save_jpg(hero_sm, os.path.join(IMG_OUT, "josi-hero-sm.jpg"), quality=84)
 save_webp(hero_sm, os.path.join(IMG_OUT, "josi-hero-sm.webp"), quality=82)
 
-# SOBRE - foto 1 (confiante), quadro médio
-sobre = crop_cover(imgs[1], 900, 1100)
+# SOBRE - foto 1 (confiante)
+sobre = resize_max_width(imgs[1], 900)
 save_jpg(sobre, os.path.join(IMG_OUT, "josi-sobre.jpg"), quality=84)
 save_webp(sobre, os.path.join(IMG_OUT, "josi-sobre.webp"), quality=82)
 
 # CTA final - foto 4 (3/4 sorrindo)
-cta = crop_cover(imgs[4], 900, 1000, vertical_bias=0.65)
+cta = resize_max_width(imgs[4], 900)
 save_jpg(cta, os.path.join(IMG_OUT, "josi-cta.jpg"), quality=84)
 save_webp(cta, os.path.join(IMG_OUT, "josi-cta.webp"), quality=82)
 
@@ -146,9 +169,13 @@ full = resize_max_width(imgs[3], 800)
 save_jpg(full, os.path.join(IMG_OUT, "josi-full.jpg"), quality=84)
 save_webp(full, os.path.join(IMG_OUT, "josi-full.webp"), quality=82)
 
-# OG IMAGE para compartilhamento em redes sociais (1200x630)
-og = crop_cover(imgs[2], 1200, 630)
+# OG IMAGE para compartilhamento em redes sociais (1200x630 — único recorte necessário)
+og = crop_cover(imgs[2], 1200, 630, vertical_bias=0.35)
 save_jpg(og, os.path.join(IMG_OUT, "og-image.jpg"), quality=85)
+
+print("\nDimensões das fotos geradas (atualize width/height no index.html se mudar):")
+for label, im in [("hero", hero), ("sobre", sobre), ("cta", cta), ("full", full)]:
+    print(f"  {label}: {im.width} x {im.height}")
 
 # ---------------------------------------------------------------------------
 # FONTES

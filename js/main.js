@@ -5,6 +5,41 @@
   "use strict";
 
   var WHATSAPP_NUMBER = "5531982445112";
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* -----------------------------------------------------------------
+     0. Splash screen + estado inicial da página
+     ----------------------------------------------------------------- */
+  var splash = document.getElementById("splash");
+
+  function markPageLoaded() {
+    document.body.classList.remove("is-splashing");
+    document.body.classList.add("is-loaded");
+  }
+
+  function hideSplash() {
+    if (!splash) {
+      markPageLoaded();
+      return;
+    }
+    splash.classList.add("is-exiting");
+    setTimeout(function () {
+      splash.classList.add("is-hidden");
+      splash.setAttribute("aria-hidden", "true");
+      markPageLoaded();
+    }, 650);
+  }
+
+  if (reducedMotion || !splash) {
+    if (splash) splash.classList.add("is-hidden");
+    markPageLoaded();
+  } else {
+    document.body.classList.add("is-splashing");
+    window.addEventListener("load", function () {
+      setTimeout(hideSplash, 2200);
+    });
+    setTimeout(hideSplash, 3500);
+  }
 
   /* -----------------------------------------------------------------
      1. Cabeçalho: estado "rolado" + menu mobile
@@ -71,6 +106,73 @@
     animatedEls.forEach(function (el) {
       el.classList.add("is-visible");
     });
+  }
+
+  /* -----------------------------------------------------------------
+     2b. Animação em cascata nos grids (data-stagger)
+     ----------------------------------------------------------------- */
+  var staggerContainers = document.querySelectorAll("[data-stagger]");
+
+  staggerContainers.forEach(function (container) {
+    var children = container.children;
+    for (var i = 0; i < children.length; i++) {
+      children[i].style.setProperty("--i", i);
+    }
+  });
+
+  if ("IntersectionObserver" in window && !reducedMotion) {
+    var staggerObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var kids = entry.target.children;
+          for (var j = 0; j < kids.length; j++) {
+            kids[j].classList.add("is-visible");
+          }
+          staggerObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -30px 0px" }
+    );
+    staggerContainers.forEach(function (container) {
+      staggerObserver.observe(container);
+    });
+  } else {
+    staggerContainers.forEach(function (container) {
+      Array.prototype.forEach.call(container.children, function (child) {
+        child.classList.add("is-visible");
+      });
+    });
+  }
+
+  /* -----------------------------------------------------------------
+     2c. Barra de progresso de rolagem
+     ----------------------------------------------------------------- */
+  var scrollProgress = document.getElementById("scrollProgress");
+
+  function updateScrollProgress() {
+    if (!scrollProgress) return;
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = percent + "%";
+  }
+  updateScrollProgress();
+  window.addEventListener("scroll", updateScrollProgress, { passive: true });
+
+  /* -----------------------------------------------------------------
+     2d. Slideshow do hero
+     ----------------------------------------------------------------- */
+  var heroSlides = document.querySelectorAll(".hero-slide");
+
+  if (heroSlides.length > 1 && !reducedMotion) {
+    var heroIndex = 0;
+
+    window.setInterval(function () {
+      heroSlides[heroIndex].classList.remove("is-active");
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroSlides[heroIndex].classList.add("is-active");
+    }, 6500);
   }
 
   /* -----------------------------------------------------------------

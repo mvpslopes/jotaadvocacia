@@ -38,7 +38,7 @@
   "name": "JOTA Advocacia",
   "description": "Escritório de advocacia especializado em Direito da Saúde, atuando na defesa de pacientes que tiveram tratamentos, medicamentos e benefícios negados pelo SUS ou por planos de saúde.",
   "areaServed": "BR",
-  "priceRange": "Consulta inicial gratuita",
+  "priceRange": "Sob consulta",
   "telephone": "+5531982445112",
   "sameAs": ["https://www.instagram.com/jota.advocacia"],
   "aggregateRating": {
@@ -54,7 +54,22 @@
 }
 </script>
 </head>
-<body>
+<body class="is-splashing">
+
+<!-- =========================== SPLASH SCREEN =========================== -->
+<div id="splash" class="splash" aria-hidden="false" role="presentation">
+  <div class="splash__bg"></div>
+  <div class="splash__content">
+    <img src="assets/img/logo-white-stacked.png" alt="JOTA Advocacia" class="splash__logo-main" width="220" height="200" />
+    <p class="splash__tagline">Advocacia &amp; Consultoria</p>
+    <div class="splash__divider"></div>
+  </div>
+  <div class="splash__loader" aria-hidden="true">
+    <span class="splash__loader-bar"></span>
+  </div>
+</div>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- =========================== HEADER =========================== -->
 <header class="site-header" id="topo">
@@ -76,7 +91,7 @@
     <div class="header-actions">
       <a class="btn btn-whatsapp" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Gostaria%20de%20agendar%20uma%20conversa%20sobre%20o%20meu%20caso." target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.8-2.4-.1-.2 0-.4.1-.5.3-.3.6-.6.8-.9.2-.3.1-.5 0-.7-.1-.2-.7-1.7-.9-2.2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 1.7 2.6 4.1 3.7 2 .9 2.4.7 2.9.6.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.3-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.1L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
-        <span class="nav-cta-text">Fale no WhatsApp</span>
+        <span class="nav-cta-text">Quero ajuda agora</span>
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mainNav">
         <span></span><span></span><span></span>
@@ -88,65 +103,52 @@
 
 <!-- =========================== HERO =========================== -->
 <section class="hero">
+  <div class="hero-backdrop" aria-hidden="true"></div>
+
   <div class="container">
-    <div class="hero-content" data-animate>
-      <span class="eyebrow on-dark">Advocacia especializada em direito da saúde</span>
-      <h1>Seu tratamento foi <span class="accent">negado?</span><br>A JOTA Advocacia luta pelo seu direito à saúde.</h1>
-      <p class="section-desc">Atuamos na defesa de pacientes que tiveram tratamentos, medicamentos, cirurgias e benefícios negados pelo SUS ou por planos de saúde. Atendimento técnico, humanizado e ágil, do primeiro contato até a solução do seu caso.</p>
+    <div class="hero-content">
+      <p class="hero-kicker">Especialistas em Direito da Saúde</p>
+      <h1>
+        <span class="hero-display">JOTA</span>
+        <span class="hero-title">Defendemos o seu acesso a tratamentos, medicamentos e benefícios assegurados por lei.</span>
+      </h1>
+      <p class="hero-lead">Atendimento técnico, humanizado e próximo — do primeiro contato à solução do seu caso.</p>
 
       <div class="hero-cta-row">
-        <a class="btn btn-whatsapp btn-lg" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Vim%20pelo%20site%20da%20JOTA%20Advocacia%20e%20gostaria%20de%20uma%20analise%20gratuita%20do%20meu%20caso." target="_blank" rel="noopener">
+        <a class="btn btn-whatsapp btn-lg" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Vim%20pelo%20site%20da%20JOTA%20Advocacia%20e%20gostaria%20de%20falar%20sobre%20o%20meu%20caso." target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.8-2.4-.1-.2 0-.4.1-.5.3-.3.6-.6.8-.9.2-.3.1-.5 0-.7-.1-.2-.7-1.7-.9-2.2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 1.7 2.6 4.1 3.7 2 .9 2.4.7 2.9.6.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.3-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.1L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
-          Solicitar análise gratuita do meu caso
+          Quero ajuda agora
         </a>
-        <a class="btn btn-outline" href="#servicos">Ver áreas de atuação</a>
       </div>
 
-      <div class="hero-trust">
-        <div class="hero-trust-item">
-          <span class="stars">★★★★★</span>
-          <div>
-            <strong>5.0 no Google</strong>
-            <span>Avaliação dos clientes</span>
-          </div>
-        </div>
-        <div class="hero-trust-item">
-          <div>
-            <strong>Direito da Saúde</strong>
-            <span>Atuação especializada</span>
-          </div>
-        </div>
-        <div class="hero-trust-item">
-          <div>
-            <strong>Atendimento humanizado</strong>
-            <span>Acompanhamento constante</span>
-          </div>
-        </div>
-      </div>
+      <p class="hero-proof"><span class="stars">★★★★★</span> 5.0 no Google · Atendimento humanizado</p>
     </div>
 
-    <div class="hero-visual" data-animate>
-      <span class="hero-tag">Dra. Josi</span>
-      <div class="frame">
-        <picture>
-          <source srcset="assets/img/josi-hero.webp" type="image/webp" />
-          <img src="assets/img/josi-hero.jpg" alt="Dra. Josi, advogada especialista em Direito da Saúde da JOTA Advocacia" width="1000" height="1250" />
-        </picture>
-      </div>
-      <div class="hero-badge">
-        <span class="stars">★★★★★</span>
-        <div>
-          <strong>5.0</strong>
-          <span>Nota no Google</span>
+    <div class="hero-visual">
+      <div class="hero-frame">
+        <div class="hero-slides">
+          <div class="hero-slide is-active">
+            <picture>
+              <source srcset="assets/img/josi-hero.webp" type="image/webp" />
+              <img src="assets/img/josi-hero.jpg" alt="Dra. Josi, advogada especialista em Direito da Saúde da JOTA Advocacia" width="1000" height="1102" />
+            </picture>
+          </div>
+          <div class="hero-slide">
+            <picture>
+              <source srcset="assets/img/josi-full.webp" type="image/webp" />
+              <img src="assets/img/josi-full.jpg" alt="" width="1200" height="1600" />
+            </picture>
+          </div>
+          <div class="hero-slide">
+            <picture>
+              <source srcset="assets/img/josi-sobre.webp" type="image/webp" />
+              <img src="assets/img/josi-sobre.jpg" alt="" width="900" height="1100" />
+            </picture>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-  <a href="#problemas" class="scroll-cue" aria-label="Rolar para baixo">
-    <span>Role</span>
-    <span class="line"></span>
-  </a>
 </section>
 
 <!-- =========================== PROBLEMAS / EMPATIA =========================== -->
@@ -154,12 +156,12 @@
   <div class="container">
     <div class="section-head center" data-animate>
       <span class="eyebrow">Você não está sozinho(a) nessa luta</span>
-      <h2 class="section-title">Situações que <span class="accent">a JOTA</span> pode resolver por você</h2>
+      <h2 class="section-title">Situações que podemos resolver por você</h2>
       <p class="section-desc">Se você se identifica com alguma dessas situações, o primeiro passo é simples: conversar com quem entende do assunto.</p>
     </div>
 
-    <div class="problem-grid">
-      <div class="problem-card" data-animate>
+    <div class="problem-grid" data-stagger>
+      <div class="problem-card">
         <div class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-9C.5 8 2 4 6 4c2 0 3.5 1.5 4 2.5C10.5 5.5 12 4 14 4c4 0 5.5 4 3.5 8-2.5 4.65-9.5 9-9.5 9z"/><path d="M9 12h1.5l1-2 1.5 4 1-2H16"/></svg>
         </div>
@@ -167,7 +169,7 @@
         <p>Cirurgias, exames ou terapias recusados sem justificativa legal cabível.</p>
       </div>
 
-      <div class="problem-card" data-animate>
+      <div class="problem-card">
         <div class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l2 4 4.5.6-3.3 3.1.8 4.4L12 13l-4 2.1.8-4.4L5.5 7.6 10 7z"/><path d="M6 21h12"/></svg>
         </div>
@@ -175,7 +177,7 @@
         <p>SUS ou plano de saúde se recusam a fornecer o remédio prescrito pelo médico.</p>
       </div>
 
-      <div class="problem-card" data-animate>
+      <div class="problem-card">
         <div class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
         </div>
@@ -183,7 +185,7 @@
         <p>Filhos com TEA ou outras condições sem liberação de terapias essenciais.</p>
       </div>
 
-      <div class="problem-card" data-animate>
+      <div class="problem-card">
         <div class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 018 0v2"/></svg>
         </div>
@@ -191,7 +193,7 @@
         <p>Pedido de benefício assistencial recusado ou cessado indevidamente pelo INSS.</p>
       </div>
 
-      <div class="problem-card" data-animate>
+      <div class="problem-card">
         <div class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg>
         </div>
@@ -199,7 +201,7 @@
         <p>Jornada de trabalho incompatível com os cuidados de um filho com deficiência.</p>
       </div>
 
-      <div class="problem-card" data-animate>
+      <div class="problem-card">
         <div class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 17l5-9 4 6 3-4 4 7"/><path d="M3 20h18"/></svg>
         </div>
@@ -215,61 +217,61 @@
   <div class="container">
     <div class="section-head center text-white" data-animate>
       <span class="eyebrow on-dark">Áreas de atuação</span>
-      <h2 class="section-title" style="color:#fff">Como a <span class="accent">JOTA Advocacia</span> pode te ajudar</h2>
+      <h2 class="section-title">Como podemos ajudar você</h2>
       <p class="section-desc">Atuação 100% focada em Direito da Saúde e direitos relacionados, com estratégia jurídica personalizada para cada caso.</p>
     </div>
 
-    <div class="services-grid">
-      <div class="service-card" data-animate>
+    <div class="services-grid" data-stagger>
+      <div class="service-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="8" r="3"/><path d="M6 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></div>
         <h3>Liberação de terapias para crianças com deficiência</h3>
         <p>Terapias para TEA e outras condições negadas pelo plano de saúde ou pelo SUS.</p>
         <a class="service-link" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Preciso%20de%20ajuda%20para%20liberar%20terapias%20para%20minha%20crianca%20com%20deficiencia%20%28TEA%20ou%20outra%20condicao%29." target="_blank" rel="noopener">Falar sobre isso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <div class="service-card" data-animate>
+      <div class="service-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 3l2 4 4.5.6-3.3 3.1.8 4.4L12 13l-4 2.1.8-4.4L5.5 7.6 10 7z"/></svg></div>
         <h3>Medicamentos de alto custo</h3>
         <p>Fornecimento pelo SUS ou pelo plano de saúde de remédios de alto custo.</p>
         <a class="service-link" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Preciso%20de%20ajuda%20para%20conseguir%20um%20medicamento%20de%20alto%20custo%20pelo%20SUS%20ou%20plano%20de%20saude." target="_blank" rel="noopener">Falar sobre isso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <div class="service-card" data-animate>
+      <div class="service-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 21s-7-4.35-9.5-9C.5 8 2 4 6 4c2 0 3.5 1.5 4 2.5C10.5 5.5 12 4 14 4c4 0 5.5 4 3.5 8-2.5 4.65-9.5 9-9.5 9z"/></svg></div>
         <h3>Cirurgias e tratamentos negados</h3>
         <p>Liberação de cirurgias e tratamentos recusados indevidamente pelos planos de saúde.</p>
         <a class="service-link" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Meu%20plano%20de%20saude%20negou%20uma%20cirurgia%20ou%20tratamento%20e%20preciso%20de%20ajuda." target="_blank" rel="noopener">Falar sobre isso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <div class="service-card" data-animate>
+      <div class="service-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/></svg></div>
         <h3>Ações contra o SUS e operadoras</h3>
         <p>Medidas judiciais contra o SUS e operadoras de planos de saúde que negam direitos.</p>
         <a class="service-link" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Quero%20entender%20como%20entrar%20com%20uma%20acao%20contra%20o%20SUS%20ou%20o%20plano%20de%20saude." target="_blank" rel="noopener">Falar sobre isso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <div class="service-card" data-animate>
+      <div class="service-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 018 0v2"/></svg></div>
         <h3>Benefício LOAS (BPC)</h3>
         <p>Solicitação e recursos do benefício assistencial ao idoso e à pessoa com deficiência.</p>
         <a class="service-link" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Gostaria%20de%20saber%20como%20solicitar%20o%20beneficio%20LOAS%20%28BPC%29." target="_blank" rel="noopener">Falar sobre isso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <div class="service-card" data-animate>
+      <div class="service-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2" y="9" width="15" height="9" rx="1.5"/><path d="M17 12h3l2 2.5V18h-5"/><circle cx="6.5" cy="19.5" r="1.5"/><circle cx="16.5" cy="19.5" r="1.5"/></svg></div>
         <h3>Isenção de IPVA</h3>
         <p>Isenção para pessoas com deficiência nos casos previstos em lei.</p>
         <a class="service-link" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Gostaria%20de%20saber%20se%20tenho%20direito%20a%20isencao%20de%20IPVA." target="_blank" rel="noopener">Falar sobre isso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <div class="service-card" data-animate>
+      <div class="service-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg></div>
         <h3>Redução de carga horária</h3>
         <p>Redução de jornada de trabalho para mães atípicas cuidadoras de filhos com deficiência.</p>
         <a class="service-link" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Sou%20mae%20atipica%20e%20quero%20saber%20sobre%20a%20reducao%20de%20carga%20horaria%20de%20trabalho." target="_blank" rel="noopener">Falar sobre isso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
-      <div class="service-card" data-animate>
+      <div class="service-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 17l5-9 4 6 3-4 4 7"/><path d="M3 20h18"/></svg></div>
         <h3>Auxílio-maternidade e previdenciário</h3>
         <p>Auxílio-maternidade e demais direitos previdenciários relacionados à saúde.</p>
@@ -286,7 +288,7 @@
       <div class="photo-frame">
         <picture>
           <source srcset="assets/img/josi-sobre.webp" type="image/webp" />
-          <img src="assets/img/josi-sobre.jpg" alt="Dra. Josi, fundadora da JOTA Advocacia" width="900" height="1100" />
+          <img src="assets/img/josi-sobre.jpg" alt="Dra. Josi, fundadora da JOTA Advocacia" width="900" height="1229" />
         </picture>
       </div>
       <div class="about-signature">
@@ -297,7 +299,7 @@
 
     <div class="about-text" data-animate>
       <span class="eyebrow">Quem vai cuidar do seu caso</span>
-      <h2 class="section-title">Dra. Josi, fundadora da <span class="accent">JOTA Advocacia</span></h2>
+      <h2 class="section-title">Dra. Josi, fundadora da <span class="highlight">JOTA Advocacia</span></h2>
       <p class="section-desc">A JOTA Advocacia nasceu com um propósito claro: ser a ponte entre pacientes e o acesso à saúde que a lei garante. Sob a condução da Dra. Josi, o escritório é 100% especializado em Direito da Saúde, atuando na defesa de quem teve tratamentos, medicamentos ou benefícios negados pelo SUS ou por planos de saúde.</p>
       <p>Cada caso é conduzido com técnica, agilidade e, acima de tudo, humanidade — porque por trás de cada processo existe uma família esperando por uma resposta. O acompanhamento é próximo e constante, do primeiro contato até a solução definitiva.</p>
 
@@ -329,26 +331,26 @@
   <div class="container">
     <div class="section-head center" data-animate>
       <span class="eyebrow">Por que escolher a JOTA</span>
-      <h2 class="section-title">O que nos torna <span class="accent">diferentes</span></h2>
+      <h2 class="section-title">O que nos torna diferentes</h2>
     </div>
 
-    <div class="differentials-grid">
-      <div class="differential-card" data-animate>
+    <div class="differentials-grid" data-stagger>
+      <div class="differential-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <h3>Especialização real</h3>
         <p>Atuação 100% dedicada ao Direito da Saúde — não é "mais uma área", é a nossa única área.</p>
       </div>
-      <div class="differential-card" data-animate>
+      <div class="differential-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg></div>
         <h3>Atendimento humanizado</h3>
         <p>Você é ouvido(a) de verdade. Cada caso é tratado com empatia e atenção individual.</p>
       </div>
-      <div class="differential-card" data-animate>
+      <div class="differential-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg></div>
         <h3>Agilidade</h3>
         <p>Casos de saúde exigem urgência. Atuamos rápido para garantir seu direito o quanto antes.</p>
       </div>
-      <div class="differential-card" data-animate>
+      <div class="differential-card">
         <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></div>
         <h3>Acompanhamento constante</h3>
         <p>Você sabe exatamente em que fase está o seu processo, do início ao fim.</p>
@@ -362,27 +364,27 @@
   <div class="container">
     <div class="section-head center" data-animate>
       <span class="eyebrow">Passo a passo</span>
-      <h2 class="section-title">Como funciona o <span class="accent">atendimento</span></h2>
+      <h2 class="section-title">Como funciona o atendimento</h2>
       <p class="section-desc">Um processo simples e transparente, pensado para tirar o peso das suas costas desde o primeiro contato.</p>
     </div>
 
-    <div class="process-steps">
-      <div class="process-step" data-animate>
+    <div class="process-steps" data-stagger>
+      <div class="process-step">
         <div class="num">1</div>
         <h3>Você entra em contato</h3>
         <p>Envie sua mensagem pelo WhatsApp contando o que está acontecendo.</p>
       </div>
-      <div class="process-step" data-animate>
+      <div class="process-step">
         <div class="num">2</div>
-        <h3>Análise gratuita do caso</h3>
+        <h3>Avaliação do seu caso</h3>
         <p>A Dra. Josi avalia a situação e identifica os seus direitos.</p>
       </div>
-      <div class="process-step" data-animate>
+      <div class="process-step">
         <div class="num">3</div>
         <h3>Estratégia personalizada</h3>
         <p>Definimos juntos o melhor caminho jurídico para o seu caso.</p>
       </div>
-      <div class="process-step" data-animate>
+      <div class="process-step">
         <div class="num">4</div>
         <h3>Acompanhamento até a solução</h3>
         <p>Você é informado(a) em cada etapa, até a garantia do seu direito.</p>
@@ -415,7 +417,7 @@
         </a>
         <a class="btn btn-whatsapp" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Gostaria%20de%20falar%20sobre%20o%20meu%20caso." target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.8-2.4-.1-.2 0-.4.1-.5.3-.3.6-.6.8-.9.2-.3.1-.5 0-.7-.1-.2-.7-1.7-.9-2.2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 1.7 2.6 4.1 3.7 2 .9 2.4.7 2.9.6.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.3-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.1L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
-          Falar agora
+          Quero ajuda agora
         </a>
       </div>
     </div>
@@ -427,17 +429,17 @@
   <div class="container">
     <div class="section-head center" data-animate>
       <span class="eyebrow">Tire suas dúvidas</span>
-      <h2 class="section-title">Perguntas <span class="accent">frequentes</span></h2>
+      <h2 class="section-title">Perguntas frequentes</h2>
     </div>
 
     <div class="faq-list" data-animate>
       <div class="faq-item is-open">
         <button class="faq-question" aria-expanded="true">
-          A análise inicial do meu caso é gratuita?
+          Como funciona o primeiro contato?
           <span class="plus"></span>
         </button>
         <div class="faq-answer">
-          <p>Sim. O primeiro contato serve para entender a sua situação e avaliar se existe um direito a ser buscado, sem nenhum custo nessa etapa.</p>
+          <p>Você envia uma mensagem pelo WhatsApp contando sua situação. A Dra. Josi ouve seu caso com atenção e avalia se existe um direito a ser buscado.</p>
         </div>
       </div>
 
@@ -501,24 +503,24 @@
       <div class="frame">
         <picture>
           <source srcset="assets/img/josi-cta.webp" type="image/webp" />
-          <img src="assets/img/josi-cta.jpg" alt="Dra. Josi — JOTA Advocacia" width="900" height="1000" />
+          <img src="assets/img/josi-cta.jpg" alt="Dra. Josi — JOTA Advocacia" width="900" height="917" />
         </picture>
       </div>
     </div>
 
     <div class="final-cta-text" data-animate>
-      <span class="eyebrow on-dark">Não deixe seu direito para depois</span>
+      <span class="eyebrow">Não deixe seu direito para depois</span>
       <h2>Fale agora com quem entende do assunto e pode mudar o rumo do seu caso.</h2>
-      <p class="section-desc">Cada dia sem o tratamento certo faz diferença. Envie sua mensagem agora e receba uma análise gratuita e humanizada do seu caso.</p>
+      <p class="section-desc">Cada dia sem o tratamento certo faz diferença. Envie sua mensagem agora e fale com quem pode ajudar.</p>
       <div class="final-cta-actions">
         <a class="btn btn-whatsapp btn-lg" href="https://wa.me/5531982445112?text=Ola%2C%20Dra.%20Josi%21%20Quero%20conversar%20sobre%20o%20meu%20caso%20de%20Direito%20da%20Saude." target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.8-2.4-.1-.2 0-.4.1-.5.3-.3.6-.6.8-.9.2-.3.1-.5 0-.7-.1-.2-.7-1.7-.9-2.2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 1.7 2.6 4.1 3.7 2 .9 2.4.7 2.9.6.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.3-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.1L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
-          Falar agora no WhatsApp
+          Quero ajuda agora
         </a>
-        <a class="btn btn-outline" href="#contato">Prefiro preencher um formulário</a>
+        <a class="btn btn-outline-navy" href="#contato">Prefiro preencher um formulário</a>
       </div>
       <div class="final-cta-note">
-        <span class="stars" style="color:#d4b578">★★★★★</span> 5.0 no Google · Resposta rápida · Atendimento humanizado
+        <span class="stars">★★★★★</span> 5.0 no Google · Resposta rápida · Atendimento humanizado
       </div>
     </div>
   </div>
@@ -651,7 +653,7 @@
 </footer>
 
 <!-- =========================== BOTÃO FLUTUANTE WHATSAPP =========================== -->
-<a class="whatsapp-float" href="https://wa.me/5531982445112?text=Ola%21%20Encontrei%20o%20site%20da%20JOTA%20Advocacia%20e%20preciso%20de%20ajuda%20com%20um%20caso%20de%20Direito%20da%20Saude." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+<a class="whatsapp-float" href="https://wa.me/5531982445112?text=Ola%21%20Encontrei%20o%20site%20da%20JOTA%20Advocacia%20e%20preciso%20de%20ajuda%20com%20um%20caso%20de%20Direito%20da%20Saude." target="_blank" rel="noopener" aria-label="Quero ajuda agora">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.8-2.4-.1-.2 0-.4.1-.5.3-.3.6-.6.8-.9.2-.3.1-.5 0-.7-.1-.2-.7-1.7-.9-2.2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .2.2 1.7 2.6 4.1 3.7 2 .9 2.4.7 2.9.6.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.3-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.1L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
 </a>
 
