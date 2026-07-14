@@ -868,15 +868,15 @@ textarea:focus-visible {
   margin: 0;
 }
 
-/* Nome da marca em Rollgates — destaque principal do hero */
+/* Nome da marca — Absara (secundária), sem o ponto no O da Rollgates */
 .hero-display {
   display: block;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(72px, 12vw, 110px);
-  line-height: 0.9;
+  font-family: "Absara Sans SC", "Lato", sans-serif;
+  font-weight: 300;
+  font-size: clamp(64px, 11vw, 100px);
+  line-height: 0.95;
   color: var(--gold-400);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.14em;
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
 }
 
