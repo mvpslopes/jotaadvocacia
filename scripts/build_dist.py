@@ -21,6 +21,7 @@ COPY_DIRS = (
     "js",
     "assets",
     "php",
+    "admin",
 )
 
 COPY_DATOS_HTACCESS = True
@@ -58,6 +59,7 @@ def copy_file(name: str) -> None:
 def prepare_dados_dir() -> None:
     dados_dir = os.path.join(DIST, "dados")
     os.makedirs(dados_dir, exist_ok=True)
+    os.makedirs(os.path.join(dados_dir, "analytics"), exist_ok=True)
 
     src_htaccess = os.path.join(ROOT, "dados", ".htaccess")
     if COPY_DATOS_HTACCESS and os.path.isfile(src_htaccess):
@@ -68,6 +70,15 @@ def prepare_dados_dir() -> None:
     with open(keep, "w", encoding="utf-8") as handle:
         handle.write("")
     log("Criado: dados/.gitkeep")
+    keep_analytics = os.path.join(dados_dir, "analytics", ".gitkeep")
+    with open(keep_analytics, "w", encoding="utf-8") as handle:
+        handle.write("")
+    log("Criado: dados/analytics/.gitkeep")
+
+    example_src = os.path.join(ROOT, "dados", "ga-service-account.example.json")
+    if os.path.isfile(example_src):
+        shutil.copy2(example_src, os.path.join(dados_dir, "ga-service-account.example.json"))
+        log("Copiado: dados/ga-service-account.example.json")
 
 
 def count_files(path: str) -> int:

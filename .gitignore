@@ -11,6 +11,9 @@
 # Dados de leads gerados em runtime (não devem ser versionados)
 /dados/*.csv
 /dados/*.json
+/dados/analytics/
+/dados/ga-service-account.json
+/graphic-ripsaw-*.json
 
 # Sistema / editor
 .DS_Store

@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/config.php';
+require_once __DIR__ . '/messages.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
@@ -103,6 +104,7 @@ function sanitizarTexto(string $valor, int $maxLength = 500): string
 
 $nome = sanitizarTexto((string) ($_POST['nome'] ?? ''), 120);
 $telefone = sanitizarTexto((string) ($_POST['telefone'] ?? ''), 30);
+$email = sanitizarTexto((string) ($_POST['email'] ?? ''), 160);
 $assunto = sanitizarTexto((string) ($_POST['assunto'] ?? ''), 120);
 $mensagem = sanitizarTexto((string) ($_POST['mensagem'] ?? ''), 1000);
 
@@ -119,6 +121,10 @@ if (mb_strlen($telefoneDigitos) < 10 || mb_strlen($telefoneDigitos) > 13) {
 
 if ($assunto === '') {
     $erros[] = 'Selecione o assunto do seu caso.';
+}
+
+if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $erros[] = 'Informe um e-mail válido.';
 }
 
 if (!empty($erros)) {
@@ -140,12 +146,24 @@ if ($fp) {
         date('Y-m-d H:i:s'),
         $nome,
         $telefone,
+        $email,
         $assunto,
         $mensagem,
         $ip,
     ]);
     fclose($fp);
 }
+
+/* Também grava no inbox JSON do painel /admin */
+jota_messages_add([
+    'name' => $nome,
+    'email' => $email,
+    'phone' => $telefone,
+    'subject' => $assunto,
+    'message' => $mensagem,
+    'ip' => $ip,
+    'ua' => (string) ($_SERVER['HTTP_USER_AGENT'] ?? ''),
+]);
 
 /* ---------------------------------------------------------------------
    4. Notificação por e-mail (opcional — depende de JOTA_NOTIFICATION_EMAIL

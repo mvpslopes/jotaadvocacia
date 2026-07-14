@@ -169,11 +169,10 @@
   /* -----------------------------------------------------------------
      2d. Slideshow do hero + indicadores
      ----------------------------------------------------------------- */
-  var heroSlides = document.querySelectorAll(".hero-visual--desktop .hero-slide");
-  var heroDots = document.querySelectorAll(".hero-visual--desktop .hero-dot");
+  var heroSlides = document.querySelectorAll(".hero-visual--cutouts .hero-slide");
+  var heroDots = document.querySelectorAll(".hero-visual--cutouts .hero-dot");
   var heroIndex = 0;
   var heroTimer;
-  var heroDesktopMQ = window.matchMedia("(min-width: 941px)");
 
   function setHeroSlide(index) {
     if (!heroSlides.length) return;
@@ -194,14 +193,13 @@
 
   function startHeroSlideshow() {
     window.clearInterval(heroTimer);
-    if (heroSlides.length < 2 || reducedMotion || !heroDesktopMQ.matches) return;
+    if (heroSlides.length < 2 || reducedMotion) return;
     heroTimer = window.setInterval(nextHeroSlide, 6500);
   }
 
   if (heroSlides.length) {
     heroDots.forEach(function (dot) {
       dot.addEventListener("click", function () {
-        if (!heroDesktopMQ.matches) return;
         var target = Number(dot.getAttribute("data-slide"));
         if (Number.isNaN(target)) return;
         setHeroSlide(target);
@@ -210,11 +208,6 @@
     });
     setHeroSlide(0);
     startHeroSlideshow();
-    if (heroDesktopMQ.addEventListener) {
-      heroDesktopMQ.addEventListener("change", startHeroSlideshow);
-    } else if (heroDesktopMQ.addListener) {
-      heroDesktopMQ.addListener(startHeroSlideshow);
-    }
   }
 
   /* -----------------------------------------------------------------
@@ -307,7 +300,7 @@
 
   function buildWhatsAppMessage(data) {
     var linhas = [
-      "Ola, Dra. Josi! Meu nome e " + data.nome + ".",
+      "Ola, equipe JOTA Advocacia! Meu nome e " + data.nome + ".",
       "Assunto: " + data.assunto + ".",
     ];
     if (data.mensagem) {
@@ -354,6 +347,10 @@
           }
 
           showFeedback("Recebemos sua mensagem! Redirecionando para o WhatsApp...", "success");
+
+          if (typeof window.jotaTrack === "function") {
+            window.jotaTrack("form_submit");
+          }
 
           var mensagem = buildWhatsAppMessage({
             nome: nome,

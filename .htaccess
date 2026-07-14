@@ -33,8 +33,8 @@ DirectoryIndex index.html index.php
   ExpiresByType image/webp "access plus 1 month"
   ExpiresByType font/ttf "access plus 1 year"
   ExpiresByType font/otf "access plus 1 year"
-  ExpiresByType text/css "access plus 1 week"
-  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/css "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
 </IfModule>
 
 # ---- Bloqueia listagem de diretórios ----
