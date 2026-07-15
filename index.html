@@ -30,7 +30,7 @@
 
 <!-- Google Analytics é carregado só após consentimento (js/analytics.js) -->
 
-<link rel="stylesheet" href="css/style.css?v=20260714j" />
+<link rel="stylesheet" href="css/style.css?v=20260715i" />
 
 <style id="cookie-banner-critical">
   /* Crítico: flutuante mesmo se o CSS externo estiver em cache antigo na Hostinger */
@@ -126,6 +126,13 @@
   "areaServed": "BR",
   "priceRange": "Sob consulta",
   "telephone": "+5531982445112",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Edifício WLE, Avenida Professor Manoel Martins, 491, 7º Andar, Sala 719",
+    "addressLocality": "Conselheiro Lafaiete",
+    "addressRegion": "MG",
+    "addressCountry": "BR"
+  },
   "sameAs": ["https://www.instagram.com/jota.advocacia"],
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -135,7 +142,18 @@
   },
   "founder": {
     "@type": "Person",
-    "name": "Dra. Josi"
+    "name": "Dra. Josi",
+    "jobTitle": "Advogada",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Universidade Federal de Ouro Preto",
+      "alternateName": "UFOP"
+    },
+    "knowsAbout": [
+      "Direito da Saúde",
+      "Direito Previdenciário",
+      "Direitos da Pessoa com Deficiência"
+    ]
   }
 }
 </script>
@@ -192,7 +210,7 @@
 
   <div class="container">
     <div class="hero-content">
-      <p class="hero-kicker">Especialistas em Direito da Saúde</p>
+      <p class="hero-kicker">Especialistas em Direito da Saúde e Previdência</p>
       <h1>
         <span class="hero-display">JOTA</span>
         <span class="hero-title">Defendemos o seu acesso a tratamentos, medicamentos e benefícios assegurados&nbsp;por&nbsp;lei.</span>
@@ -210,31 +228,19 @@
     </div>
 
     <div class="hero-visual">
-      <div class="hero-visual--cutouts" aria-hidden="false">
+      <div class="hero-visual--cutouts">
         <div class="hero-frame hero-frame--cutout">
-          <div class="hero-slides" id="heroSlides">
-            <div class="hero-slide is-active" data-slide="0">
+          <div class="hero-slides">
+            <div class="hero-slide is-active">
               <picture>
-                <source media="(max-width: 940px)" srcset="assets/img/josi-hero-cutout-1-sm.webp" type="image/webp" />
-                <source media="(max-width: 940px)" srcset="assets/img/josi-hero-cutout-1-sm.png" />
-                <source srcset="assets/img/josi-hero-cutout-1.webp" type="image/webp" />
-                <img src="assets/img/josi-hero-cutout-1.png" alt="Dra. Josi, advogada especialista em Direito da Saúde da JOTA Advocacia" width="900" height="1152" />
-              </picture>
-            </div>
-            <div class="hero-slide" data-slide="1">
-              <picture>
-                <source media="(max-width: 940px)" srcset="assets/img/josi-hero-cutout-2-sm.webp" type="image/webp" />
-                <source media="(max-width: 940px)" srcset="assets/img/josi-hero-cutout-2-sm.png" />
-                <source srcset="assets/img/josi-hero-cutout-2.webp" type="image/webp" />
-                <img src="assets/img/josi-hero-cutout-2.png" alt="" width="900" height="1421" />
+                <source media="(max-width: 940px)" srcset="assets/img/josi-hero-cutout-2-sm.webp?v=20260715e" type="image/webp" />
+                <source media="(max-width: 940px)" srcset="assets/img/josi-hero-cutout-2-sm.png?v=20260715e" />
+                <source srcset="assets/img/josi-hero-cutout-2.webp?v=20260715e" type="image/webp" />
+                <img src="assets/img/josi-hero-cutout-2.png?v=20260715e" alt="Dra. Josi, advogada especialista em Direito da Saúde da JOTA Advocacia" width="473" height="684" />
               </picture>
             </div>
           </div>
           <span class="hero-frame-badge">Dra. Josi · Fundadora</span>
-          <div class="hero-dots" id="heroDots" aria-label="Fotos do hero">
-            <button type="button" class="hero-dot is-active" aria-label="Foto 1" aria-current="true" data-slide="0"></button>
-            <button type="button" class="hero-dot" aria-label="Foto 2" data-slide="1"></button>
-          </div>
         </div>
       </div>
     </div>
@@ -297,7 +303,7 @@
         <div class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-9C.5 8 2 4 6 4c2 0 3.5 1.5 4 2.5C10.5 5.5 12 4 14 4c4 0 5.5 4 3.5 8-2.5 4.65-9.5 9-9.5 9z"/><path d="M9 12h1.5l1-2 1.5 4 1-2H16"/></svg>
         </div>
-        <h3>Plano de saúde negou seu tratamento</h3>
+        <h3>Plano de saúde ou SUS negou seu tratamento</h3>
         <p>Cirurgias, exames ou terapias recusados sem justificativa legal cabível.</p>
       </div>
 
@@ -461,7 +467,27 @@
       <span class="eyebrow">Quem cuida do seu caso</span>
       <h2 class="section-title">Dra. Josi e a equipe da <span class="highlight">JOTA Advocacia</span></h2>
       <p class="section-desc">A JOTA Advocacia nasceu com um propósito claro: ser a ponte entre pacientes e o acesso à saúde e aos benefícios que a lei garante. Sob a liderança da Dra. Josi, nossa equipe atua em Direito da Saúde, Direitos da Pessoa com Deficiência e Direito Previdenciário — na defesa de quem teve tratamentos, medicamentos ou benefícios negados pelo SUS, pelos planos de saúde ou pelo INSS.</p>
-      <p>Cada caso é conduzido com técnica, agilidade e, acima de tudo, humanidade — porque por trás de cada processo existe uma família esperando por uma resposta. O acompanhamento é próximo e constante, do primeiro contato até a solução definitiva, com a equipe certa para cada etapa.</p>
+      <p class="section-desc">Formada em Direito pela UFOP, com mestrado também na UFOP, a Dra. Josi atua como advogada há cerca de 10 anos, com especialização em Direito da Saúde e Direito Previdenciário. Atuou ainda como professora universitária de Direito, unindo experiência prática e formação acadêmica no acompanhamento de cada caso.</p>
+      <p class="section-desc">Cada caso é conduzido com técnica, agilidade e, acima de tudo, humanidade — porque por trás de cada processo existe uma família esperando por uma resposta. O acompanhamento é próximo e constante, do primeiro contato até a solução definitiva, com a equipe certa para cada etapa.</p>
+
+      <ul class="about-credentials" aria-label="Formação da Dra. Josi">
+        <li>
+          <strong>Graduação e mestrado</strong>
+          <span>Direito — UFOP</span>
+        </li>
+        <li>
+          <strong>Especialização</strong>
+          <span>Direito da Saúde e Previdenciário</span>
+        </li>
+        <li>
+          <strong>≈ 10 anos</strong>
+          <span>de Advocacia</span>
+        </li>
+        <li>
+          <strong>Docência</strong>
+          <span>Professora universitária de Direito</span>
+        </li>
+      </ul>
 
       <div class="about-badges">
         <div class="about-badge">
@@ -469,12 +495,12 @@
           <span>Avaliação no Google</span>
         </div>
         <div class="about-badge">
-          <strong>Saúde +</strong>
-          <span>Previdenciário e PCD</span>
+          <strong>UFOP</strong>
+          <span>Direito e mestrado</span>
         </div>
         <div class="about-badge">
-          <strong>Equipe</strong>
-          <span>Atendimento próximo</span>
+          <strong>≈10 anos</strong>
+          <span>de Advocacia</span>
         </div>
       </div>
 
@@ -564,25 +590,25 @@
     <div class="reviews-grid" data-stagger>
       <article class="review-card">
         <div class="star-rating" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="review-text">“Atendimento impecável e muito humano. A Dra. Josi explicou cada passo com clareza e me deu segurança em um momento difícil.”</p>
+        <p class="review-text">“Gostaria de registrar minha satisfação com o excelente trabalho realizado pela Jota Advogacia. Desde o início, demonstrou competência, dedicação e comprometimento com o caso. Graças à sua atuação eficiente e ágil, a liminar foi obtida rapidamente, garantindo a proteção dos meus direitos no momento em que mais precisava. Sou muito grata pelo atendimento atencioso e pela excelência do serviço prestado. Recomendo seu trabalho com total confiança.”</p>
         <footer class="review-author">
-          <strong>Cliente atendido</strong>
+          <strong>Crislaine Simão</strong>
           <span>Avaliação no Google</span>
         </footer>
       </article>
       <article class="review-card">
         <div class="star-rating" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="review-text">“Profissional dedicada e ágil. Conseguiu avançar com meu pedido de medicamento de alto custo com muita competência técnica.”</p>
+        <p class="review-text">“Gostaria de agradecer imensamente ao escritório pelo excelente trabalho. Precisei de suporte jurídico para a liberação de uma cirurgia de alça de balde no menisco do joelho esquerdo, pois o plano de saúde já havia descumprido todos os prazos legais e se recusava a dar um posicionamento. A equipe foi extremamente ágil, entrou com o processo e conseguiu a liberação que eu precisava. Profissionais competentes, transparentes e muito humanos. Recomendo fortemente para quem tiver problemas com negativas de planos de saúde!”</p>
         <footer class="review-author">
-          <strong>Cliente atendido</strong>
+          <strong>Wemerson Ribeiro</strong>
           <span>Avaliação no Google</span>
         </footer>
       </article>
       <article class="review-card">
         <div class="star-rating" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="review-text">“Sempre disponível para tirar dúvidas e acompanhar o andamento. Recomendo para quem precisa de alguém que entenda de Direito da Saúde.”</p>
+        <p class="review-text">“Sou cliente a mais de dois anos e não me arrependo, consegui todas as terapias do meu filho pela Unimed com o apoio desse time incrível! Melhor atendimento jurídico, acompanhamento de processos e sempre tive um resultado positivo! Indico para todo mundo!”</p>
         <footer class="review-author">
-          <strong>Cliente atendido</strong>
+          <strong>Gabriella Freitas</strong>
           <span>Avaliação no Google</span>
         </footer>
       </article>
@@ -729,6 +755,16 @@
           <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></span>
           <span><small>Instagram</small>@jota.advocacia</span>
         </a>
+        <a class="info-row info-row--address" href="https://www.google.com/maps/search/?api=1&amp;query=Edif%C3%ADcio%20WLE%2C%20Avenida%20Professor%20Manoel%20Martins%2C%20491%2C%20Conselheiro%20Lafaiete%20-%20MG" target="_blank" rel="noopener">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <span>
+            <small>Localização</small>
+            Edifício WLE<br />
+            Av. Professor Manoel Martins, 491<br />
+            7º Andar | Sala 719<br />
+            Conselheiro Lafaiete — MG
+          </span>
+        </a>
         <div class="info-row">
           <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
           <span><small>Horário</small>Respondemos o mais rápido possível</span>
@@ -835,6 +871,14 @@
         <ul>
           <li><a href="https://wa.me/5531982445112" target="_blank" rel="noopener">(31) 98244-5112</a></li>
           <li><a href="https://www.instagram.com/jota.advocacia" target="_blank" rel="noopener">@jota.advocacia</a></li>
+          <li>
+            <a class="footer-address" href="https://www.google.com/maps/search/?api=1&amp;query=Edif%C3%ADcio%20WLE%2C%20Avenida%20Professor%20Manoel%20Martins%2C%20491%2C%20Conselheiro%20Lafaiete%20-%20MG" target="_blank" rel="noopener">
+              Edifício WLE<br />
+              Av. Professor Manoel Martins, 491<br />
+              7º Andar | Sala 719<br />
+              Conselheiro Lafaiete — MG
+            </a>
+          </li>
         </ul>
       </div>
     </div>

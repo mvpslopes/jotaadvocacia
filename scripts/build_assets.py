@@ -221,12 +221,10 @@ for label, im in [("hero", hero), ("sobre", sobre), ("cta", cta), ("full", full)
     print(f"  {label}: {im.width} x {im.height}")
 
 # ---------------------------------------------------------------------------
-# FOTOS SEM FUNDO com gradiente na base (hero flutuante)
-# Não aplicar trim_alpha — o fade inferior faz parte do recorte.
+# FOTO SEM FUNDO (hero flutuante) — apenas fotos/2.png, crop na base.
 # ---------------------------------------------------------------------------
 cutout_sources = {
-    1: "foto-semfundo-josi (1).png",
-    2: "foto-semfundo-josi (2).png",
+    2: "2.png",
 }
 cutouts = {}
 for key, filename in cutout_sources.items():
@@ -235,6 +233,15 @@ for key, filename in cutout_sources.items():
         print("AVISO: recorte não encontrado ->", src)
         continue
     im = ImageOps.exif_transpose(Image.open(src)).convert("RGBA")
+    bbox = im.getbbox()
+    if bbox:
+        im = im.crop(bbox)
+    # Mantém ~58% do topo (meio-corpo) para o hero não ficar longo demais
+    keep_h = int(im.height * 0.58)
+    im = im.crop((0, 0, im.width, keep_h))
+    bbox = im.getbbox()
+    if bbox:
+        im = im.crop(bbox)
     im = resize_max_width(im, 900)
     cutouts[key] = im
     base = f"josi-hero-cutout-{key}"
