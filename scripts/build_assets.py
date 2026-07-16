@@ -221,30 +221,26 @@ for label, im in [("hero", hero), ("sobre", sobre), ("cta", cta), ("full", full)
     print(f"  {label}: {im.width} x {im.height}")
 
 # ---------------------------------------------------------------------------
-# FOTO SEM FUNDO (hero flutuante) — apenas fotos/2.png, crop na base.
+# FOTO SEM FUNDO (hero flutuante) — fotos/foto-hero.png, crop na base.
 # ---------------------------------------------------------------------------
-cutout_sources = {
-    2: "2.png",
-}
+cutout_src = os.path.join(fotos_dir, "foto-hero.png")
 cutouts = {}
-for key, filename in cutout_sources.items():
-    src = os.path.join(fotos_dir, filename)
-    if not os.path.exists(src):
-        print("AVISO: recorte não encontrado ->", src)
-        continue
-    im = ImageOps.exif_transpose(Image.open(src)).convert("RGBA")
+if not os.path.exists(cutout_src):
+    print("AVISO: recorte não encontrado ->", cutout_src)
+else:
+    im = ImageOps.exif_transpose(Image.open(cutout_src)).convert("RGBA")
     bbox = im.getbbox()
     if bbox:
         im = im.crop(bbox)
-    # Mantém ~58% do topo (meio-corpo) para o hero não ficar longo demais
-    keep_h = int(im.height * 0.58)
+    # Mantém ~62% do topo (meio-corpo) para o hero não ficar longo demais
+    keep_h = int(im.height * 0.62)
     im = im.crop((0, 0, im.width, keep_h))
     bbox = im.getbbox()
     if bbox:
         im = im.crop(bbox)
     im = resize_max_width(im, 900)
-    cutouts[key] = im
-    base = f"josi-hero-cutout-{key}"
+    cutouts[2] = im
+    base = "josi-hero-cutout-2"
     save_png(im, os.path.join(IMG_OUT, f"{base}.png"))
     save_webp_alpha(im, os.path.join(IMG_OUT, f"{base}.webp"), quality=84)
     sm = resize_max_width(im, 560)
